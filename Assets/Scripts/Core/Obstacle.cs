@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -32,9 +29,11 @@ public class Obstacle : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.GetComponent<Bubble>())
+        var bubble = other.gameObject.GetComponent<Bubble>();
+        if (bubble)
         {
-            _moveDirection = new Vector2(-_moveDirection.x, -_moveDirection.y);
+            if (!bubble.IsDragged)
+                _moveDirection = new Vector2(-_moveDirection.x, -_moveDirection.y);
             
             return;
         }
@@ -46,6 +45,7 @@ public class Obstacle : MonoBehaviour
         var border = wall.GetComponent<Border>();
         if (border == null)
             return;
+        
         if (border.direction is Border.Direction.Top or Border.Direction.Bottom)
             _moveDirection = new Vector2(_moveDirection.x, -_moveDirection.y);
         else  if (border.direction is Border.Direction.Left or Border.Direction.Right)

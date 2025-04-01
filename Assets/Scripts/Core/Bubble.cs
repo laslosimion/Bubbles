@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using TMPro;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 public class Bubble : MonoBehaviour, IRuntimeInitializable
 {
@@ -13,12 +14,15 @@ public class Bubble : MonoBehaviour, IRuntimeInitializable
     
     public event Action<Bubble> OnHitBubble;
     public event Action<Bubble> OnHitTopBorder;
+    public event Action<Bubble> OnHitWhileDragged;
 
     private int _pointsReward;
 
     private int _pointsDeMultiplier;
     private Color _defaultColor;
+    private bool _isDragged;
 
+    public bool IsDragged => _isDragged;
     public int PointsReward => int.Parse(_text.text);
 
     public void Initialize()
@@ -31,11 +35,19 @@ public class Bubble : MonoBehaviour, IRuntimeInitializable
     public void HandleDrag()
     {
         IncreaseScale();
+
+        _isDragged = true;
+        
         var localMousePosition = Camera.main.ScreenToWorldPoint (Input.mousePosition);
         transform.localPosition = new Vector3(localMousePosition.x, localMousePosition.y, 0);
     }
     
-    public void IncreaseScale()
+    public void HandleRelease()
+    {
+        _isDragged = false;
+    }
+
+    private void IncreaseScale()
     {
         var localScale = transform.localScale;
         transform.localScale = new Vector3(localScale.x + _bubbleInfo.increaseScaleSpeed,
@@ -67,6 +79,12 @@ public class Bubble : MonoBehaviour, IRuntimeInitializable
         if (border && border.direction == Border.Direction.Top)
         {
             OnHitTopBorder?.Invoke(this);
+            return;
+        }
+
+        if (_isDragged && other.gameObject.GetComponent<Obstacle>())
+        {
+            OnHitWhileDragged?.Invoke(this);
         }
     }
 }

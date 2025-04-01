@@ -1,8 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class Level : MonoBehaviour, IRuntimeInitializable
 {
@@ -36,7 +34,12 @@ public class Level : MonoBehaviour, IRuntimeInitializable
         if (_canSpawnBubbles && _currentBubble)
             _currentBubble.HandleDrag();
     }
-    
+
+    private void OnMouseUp()
+    {
+        if (_canSpawnBubbles && _currentBubble)
+            _currentBubble.HandleRelease();
+    }
 
     private void CreateBubble()
     {
@@ -49,14 +52,29 @@ public class Level : MonoBehaviour, IRuntimeInitializable
 
         _currentBubble.OnHitBubble += Bubble_OnHit;
         _currentBubble.OnHitTopBorder += Bubble_OnHit;
+        _currentBubble.OnHitWhileDragged +=Bubble_OnHitWhileDragged;
         
         Main.Instance.PointsHandler.DecreaseMoves();
     }
 
-    private static void Bubble_OnHit(Bubble bubble)
+    private void Bubble_OnHitWhileDragged(Bubble bubble)
+    {
+        Destroy(bubble.gameObject);
+        
+        bubble.OnHitBubble -= Bubble_OnHit;
+        bubble.OnHitTopBorder -= Bubble_OnHit;
+        bubble.OnHitWhileDragged -=Bubble_OnHitWhileDragged;
+        
+        _spawnedBubbles.Remove(bubble);
+
+        _currentBubble = null;
+    }
+
+    private void Bubble_OnHit(Bubble bubble)
     {
         bubble.OnHitBubble -= Bubble_OnHit;
         bubble.OnHitTopBorder -=Bubble_OnHit;
+        bubble.OnHitWhileDragged -=Bubble_OnHitWhileDragged;
         
         Main.Instance.PointsHandler.DecreasePoints(bubble.PointsReward);
     }
@@ -116,6 +134,7 @@ public class Level : MonoBehaviour, IRuntimeInitializable
         {
             item.OnHitBubble += Bubble_OnHit;
             item.OnHitTopBorder += Bubble_OnHit;
+            item.OnHitWhileDragged +=Bubble_OnHitWhileDragged;
         }
     }
     
@@ -125,6 +144,7 @@ public class Level : MonoBehaviour, IRuntimeInitializable
         {
             item.OnHitBubble -= Bubble_OnHit;
             item.OnHitTopBorder -= Bubble_OnHit;
+            item.OnHitWhileDragged -=Bubble_OnHitWhileDragged;
         }
     }
 }
