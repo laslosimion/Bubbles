@@ -1,11 +1,9 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SubLevel : MonoBehaviour
 {
     private const float EnableTopBorderDelay = 5;
+    private const float TopPositionOffset = 4;
     
     [SerializeField] private Obstacle[] _obstacles;
     [SerializeField] private Border _topBorder;
@@ -21,11 +19,16 @@ public class SubLevel : MonoBehaviour
     public void DisableTopBorder()
     {
         _topBorder.gameObject.SetActive(false);
-        Invoke(nameof(EnableTopBorder), EnableTopBorderDelay);
+        Invoke(nameof(ResetTopBorder), EnableTopBorderDelay);
     }
 
-    public void EnableTopBorder()
+    public void ResetTopBorder()
     {
+        var topBorderTransform = _topBorder.transform;
+        var topBorderTransformPosition = topBorderTransform.position;
+        _topBorder.transform.position =
+            new Vector3(topBorderTransformPosition.x, topBorderTransformPosition.y + TopPositionOffset);
+        
         _topBorder.gameObject.SetActive(true);
     }
 
@@ -39,6 +42,6 @@ public class SubLevel : MonoBehaviour
 
     private void OnDestroy()
     {
-        CancelInvoke(nameof(EnableTopBorder));
+        CancelInvoke(nameof(ResetTopBorder));
     }
 }

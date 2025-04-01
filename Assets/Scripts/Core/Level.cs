@@ -25,21 +25,16 @@ public class Level : MonoBehaviour, IRuntimeInitializable
             return;
 
         if (Camera.main != null)
-        {
             CreateBubble();
-        }
 
         Main.Instance.PointsHandler.DecreaseMoves();
     }
     
     private void OnMouseDrag()
     {
+        //this should be done in bubble but its collider is too small when created
         if (_canSpawnBubbles && _currentBubble)
-        {
-            _currentBubble.IncreaseScale();
-            var localMousePosition = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-            _currentBubble.transform.localPosition = new Vector3(localMousePosition.x, localMousePosition.y, 0);
-        }
+            _currentBubble.HandleDrag();
     }
     
 

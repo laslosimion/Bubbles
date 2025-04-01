@@ -28,6 +28,13 @@ public class Bubble : MonoBehaviour, IRuntimeInitializable
         _sprite.color = _defaultColor;
     }
 
+    public void HandleDrag()
+    {
+        IncreaseScale();
+        var localMousePosition = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+        transform.localPosition = new Vector3(localMousePosition.x, localMousePosition.y, 0);
+    }
+    
     public void IncreaseScale()
     {
         var localScale = transform.localScale;
