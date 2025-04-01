@@ -8,22 +8,14 @@ public class Factory : MonoBehaviour
     [SerializeField] private Bubble _bubble;
     [SerializeField] private Level[] _levels;
 
-    public static Factory Instance;
-
-    private void Awake()
-    {
-        if (Instance == null)
-            Instance = this;
-    }
-
     public Bubble GetBubble(Vector2 position, Transform parent, Color color)
     {
         var instance = Instantiate(_bubble, parent);
         instance.transform.localPosition = position;
 
         var bubble = instance.GetComponent<Bubble>();
+        bubble.SetDefaultColor(color);
         bubble.Initialize();
-        bubble.SetColor(color);
         
         return bubble;
     }

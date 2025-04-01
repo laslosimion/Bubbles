@@ -16,7 +16,7 @@ public class Obstacle : MonoBehaviour
         Initialize();
     }
 
-    public void Initialize()
+    private void Initialize()
     {
         _speed = Random.Range(_info.minSpeed, _info.maxSpeed);
 
@@ -32,7 +32,6 @@ public class Obstacle : MonoBehaviour
     {
         if (other.gameObject.GetComponent<Bubble>())
         {
-            Debug.Log("Hit Bubble");
             _moveDirection = new Vector2(-_moveDirection.x, -_moveDirection.y);
             
             return;
@@ -46,14 +45,8 @@ public class Obstacle : MonoBehaviour
         if (border == null)
             return;
         if (border.direction is Border.Direction.Top or Border.Direction.Bottom)
-        {
             _moveDirection = new Vector2(_moveDirection.x, -_moveDirection.y);
-            Debug.Log("Hit top/bottom, switching y");
-        }
         else  if (border.direction is Border.Direction.Left or Border.Direction.Right)
-        {
             _moveDirection = new Vector2(-_moveDirection.x, _moveDirection.y);
-            Debug.Log("Hit left/right, switching x");
-        }
     }
 }

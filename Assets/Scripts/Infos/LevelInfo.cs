@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Level", menuName = "ScriptableObjects/Level", order = 1)]
-public class LevelInfo:ScriptableObject
+public sealed class LevelInfo:ScriptableObject
 {
     [System.Serializable]
     public class SubLevel
