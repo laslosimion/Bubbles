@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 
 public class Level : MonoBehaviour, IRuntimeInitializable
 {
+    public event Action OnLevelCompleted;
+    
     [SerializeField] private LevelInfo _levelInfo;
     [SerializeField] private SubLevel[] _subLevels;
 
@@ -93,6 +95,12 @@ public class Level : MonoBehaviour, IRuntimeInitializable
         _subLevels[_currentSublevel].DestroyObstacles();
         
         _currentSublevel++;
+
+        if (_currentSublevel >= _subLevels.Length)
+        {
+            OnLevelCompleted?.Invoke();
+            return;
+        }
 
         Initialize();
         

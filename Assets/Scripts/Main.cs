@@ -22,12 +22,18 @@ public sealed class Main : MonoBehaviour
     
     private void Start()
     {
-        CreateCurrentLevel();
+        CreateNextLevel();
     }
 
-    private void CreateCurrentLevel()
+    private void CreateNextLevel()
     {
         _currentLevel = _factory.GetLevel(0);
+        _currentLevel.OnLevelCompleted += CurrentLevel_OnLevelCompleted;
+    }
+
+    private void CurrentLevel_OnLevelCompleted()
+    {
+        WinLevel();
     }
 
     public void EndGame()
