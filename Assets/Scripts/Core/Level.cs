@@ -24,9 +24,7 @@ public class Level : MonoBehaviour, IRuntimeInitializable
 
         if (Camera.main != null)
         {
-            var localMousePosition = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-            var subLevelColor = _levelInfo.subLevels[_currentSublevel].color;
-            CreateBubble(localMousePosition, subLevelColor);
+            CreateBubble();
         }
 
         Main.Instance.PointsHandler.DecreaseMoves();
@@ -42,9 +40,13 @@ public class Level : MonoBehaviour, IRuntimeInitializable
     }
     
 
-    private void CreateBubble(Vector3 localMousePosition, Color subLevelColor)
+    private void CreateBubble()
     {
-        _currentBubble = Main.Instance.Factory.GetBubble(localMousePosition, transform, subLevelColor);
+        var localMousePosition = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+        var subLevelColor = _levelInfo.subLevels[_currentSublevel].color;
+        var pointsDeMultiplier = _levelInfo.subLevels[_currentSublevel].pointsDeMultiplier;
+        
+        _currentBubble = Main.Instance.Factory.GetBubble(localMousePosition, transform, subLevelColor, pointsDeMultiplier);
         _spawnedBubbles.Add(_currentBubble);
 
         _currentBubble.OnHitBubble += Bubble_OnHit;

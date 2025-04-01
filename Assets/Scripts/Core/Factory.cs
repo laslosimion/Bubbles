@@ -8,12 +8,13 @@ public class Factory : MonoBehaviour
     [SerializeField] private Bubble _bubble;
     [SerializeField] private Level[] _levels;
 
-    public Bubble GetBubble(Vector2 position, Transform parent, Color color)
+    public Bubble GetBubble(Vector2 position, Transform parent, Color color, int pointsDeMultiplier)
     {
         var instance = Instantiate(_bubble, parent);
         instance.transform.localPosition = position;
 
         var bubble = instance.GetComponent<Bubble>();
+        bubble.SetPointsDemultiplier(pointsDeMultiplier);
         bubble.SetDefaultColor(color);
         bubble.Initialize();
         

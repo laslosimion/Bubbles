@@ -15,7 +15,8 @@ public class Bubble : MonoBehaviour, IRuntimeInitializable
     public event Action<Bubble> OnHitTopBorder;
 
     private int _pointsReward;
-    
+
+    private int _pointsDeMultiplier;
     private Color _defaultColor;
 
     public int PointsReward => int.Parse(_text.text);
@@ -34,9 +35,14 @@ public class Bubble : MonoBehaviour, IRuntimeInitializable
             localScale.y + _bubbleInfo.increaseScaleSpeed);
 
         _pointsReward += _bubbleInfo.increasePointsSpeed;
-        _text.text = (_pointsReward / _bubbleInfo.pointsDeMultiplier).ToString();
+        _text.text = (_pointsReward / _pointsDeMultiplier).ToString();
     }
 
+    public void SetPointsDemultiplier(int value)
+    {
+        _pointsDeMultiplier = value;
+    }
+    
     public void SetDefaultColor(Color color)
     {
         _defaultColor = color;

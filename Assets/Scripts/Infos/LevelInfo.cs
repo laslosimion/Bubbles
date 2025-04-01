@@ -11,6 +11,7 @@ public sealed class LevelInfo:ScriptableObject
         public float cameraSize = 25;
         public float cameraY;
         public Color color;
+        public int pointsDeMultiplier = 30;
     }
     
     public SubLevel[] subLevels;

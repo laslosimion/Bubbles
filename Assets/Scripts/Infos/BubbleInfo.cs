@@ -8,5 +8,4 @@ public sealed class BubbleInfo : ScriptableObject
 {
    public float increaseScaleSpeed = 0.001f;
    public int increasePointsSpeed = 1;
-   public int pointsDeMultiplier = 30;
 }
