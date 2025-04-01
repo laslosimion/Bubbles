@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class SubLevel : MonoBehaviour
 {
-    private const float EnableTopBorderDelay = 5;
-    private const float TopPositionOffset = 4;
+    private const float EnableTopBorderDelay = 3;
+    private const float TopPositionOffset = 3;
     
     [SerializeField] private Obstacle[] _obstacles;
     [SerializeField] private Border _topBorder;

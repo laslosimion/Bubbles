@@ -75,7 +75,9 @@ public class Level : MonoBehaviour, IRuntimeInitializable
         bubble.OnHitBubble -= Bubble_OnHit;
         bubble.OnHitTopBorder -=Bubble_OnHit;
         bubble.OnHitWhileDragged -=Bubble_OnHitWhileDragged;
-        
+
+        if (bubble.HitsCount < 2)
+            Main.Instance.PointsHandler.IncreaseCurrency(bubble.PointsReward / 10);
         Main.Instance.PointsHandler.DecreasePoints(bubble.PointsReward);
     }
 

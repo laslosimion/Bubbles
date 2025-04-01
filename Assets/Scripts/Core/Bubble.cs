@@ -20,10 +20,11 @@ public class Bubble : MonoBehaviour, IRuntimeInitializable
 
     private int _pointsDeMultiplier;
     private Color _defaultColor;
-    private bool _isDragged;
 
-    public bool IsDragged => _isDragged;
+    public bool IsDragged { get; private set; }
+
     public int PointsReward => int.Parse(_text.text);
+    public int HitsCount { get; private set; }
 
     public void Initialize()
     {
@@ -36,7 +37,7 @@ public class Bubble : MonoBehaviour, IRuntimeInitializable
     {
         IncreaseScale();
 
-        _isDragged = true;
+        IsDragged = true;
         
         var localMousePosition = Camera.main.ScreenToWorldPoint (Input.mousePosition);
         transform.localPosition = new Vector3(localMousePosition.x, localMousePosition.y, 0);
@@ -44,7 +45,7 @@ public class Bubble : MonoBehaviour, IRuntimeInitializable
     
     public void HandleRelease()
     {
-        _isDragged = false;
+        IsDragged = false;
     }
 
     private void IncreaseScale()
@@ -69,6 +70,8 @@ public class Bubble : MonoBehaviour, IRuntimeInitializable
 
     private void OnCollisionEnter2D(Collision2D other)
     {
+        HitsCount++;
+        
         if (other.gameObject.GetComponent<Bubble>())
         {
             OnHitBubble?.Invoke(this);
@@ -82,7 +85,7 @@ public class Bubble : MonoBehaviour, IRuntimeInitializable
             return;
         }
 
-        if (_isDragged && other.gameObject.GetComponent<Obstacle>())
+        if (IsDragged && other.gameObject.GetComponent<Obstacle>())
         {
             OnHitWhileDragged?.Invoke(this);
         }
