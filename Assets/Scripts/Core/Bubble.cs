@@ -1,10 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
 using TMPro;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 public class Bubble : MonoBehaviour, IRuntimeInitializable
 {
@@ -20,6 +16,7 @@ public class Bubble : MonoBehaviour, IRuntimeInitializable
 
     private int _pointsDeMultiplier;
     private Color _defaultColor;
+    private bool _hitTop;
 
     public bool IsDragged { get; private set; }
 
@@ -47,6 +44,11 @@ public class Bubble : MonoBehaviour, IRuntimeInitializable
     {
         IsDragged = false;
     }
+    
+    public void ResetHits()
+    {
+        _hitTop = false;
+    }
 
     private void IncreaseScale()
     {
@@ -71,9 +73,13 @@ public class Bubble : MonoBehaviour, IRuntimeInitializable
     private void OnCollisionEnter2D(Collision2D other)
     {
         HitsCount++;
-        
-        if (other.gameObject.GetComponent<Bubble>())
+
+        var bubble = other.gameObject.GetComponent<Bubble>();
+        if (bubble && bubble._hitTop)
         {
+            _hitTop = true;
+            bubble._hitTop = true;
+            
             OnHitBubble?.Invoke(this);
             return;
         }
@@ -81,13 +87,13 @@ public class Bubble : MonoBehaviour, IRuntimeInitializable
         var border = other.gameObject.GetComponent<Border>();
         if (border && border.direction == Border.Direction.Top)
         {
+            _hitTop = true;
+
             OnHitTopBorder?.Invoke(this);
             return;
         }
 
         if (IsDragged && other.gameObject.GetComponent<Obstacle>())
-        {
             OnHitWhileDragged?.Invoke(this);
-        }
     }
 }
