@@ -95,16 +95,33 @@ public class Level : MonoBehaviour, IRuntimeInitializable
         _currentSublevel++;
 
         Initialize();
+        
+        RemoveBubblesListeners();
+        Invoke(nameof(AddBubblesListeners), 1);
     }
 
     private void OnDestroy()
     {
+        RemoveBubblesListeners();
+
+        _spawnedBubbles.Clear();
+    }
+
+    private void AddBubblesListeners()
+    {
+        foreach (var item in _spawnedBubbles)
+        {
+            item.OnHitBubble += Bubble_OnHit;
+            item.OnHitTopBorder += Bubble_OnHit;
+        }
+    }
+    
+    private void RemoveBubblesListeners()
+    {
         foreach (var item in _spawnedBubbles)
         {
             item.OnHitBubble -= Bubble_OnHit;
-            item.OnHitTopBorder -=Bubble_OnHit;
+            item.OnHitTopBorder -= Bubble_OnHit;
         }
-        
-        _spawnedBubbles.Clear();
     }
 }
