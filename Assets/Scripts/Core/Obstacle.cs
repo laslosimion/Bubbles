@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,6 +11,8 @@ public class Obstacle : MonoBehaviour
     private Vector2 _moveDirection;
 
     private bool _initialized;
+    private Vector2 _previousCollisionPoint;
+    private List<float> _distancesBetweenCollisions = new();
     
     public void Initialize()
     {
@@ -17,6 +21,8 @@ public class Obstacle : MonoBehaviour
         _moveDirection = Random.insideUnitCircle.normalized;
 
         _initialized = true;
+
+        _previousCollisionPoint = transform.position;
     }
     
     private void Update()
@@ -29,6 +35,13 @@ public class Obstacle : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
+        var distance = Vector2.Distance(_previousCollisionPoint, transform.position);
+        _distancesBetweenCollisions.Add(distance);
+
+        _previousCollisionPoint = transform.position;
+
+        CheckDistances();
+        
         var bubble = other.gameObject.GetComponent<Bubble>();
         if (bubble)
         {
@@ -39,7 +52,28 @@ public class Obstacle : MonoBehaviour
         }
         ReflectDirection(other.gameObject);
     }
-    
+
+    private void CheckDistances()
+    {
+        if (_distancesBetweenCollisions.Count < 5)
+            return;
+
+        var shouldDestroyObject = false;
+        for (var i = _distancesBetweenCollisions.Count - 1; i > _distancesBetweenCollisions.Count - 5; i--)
+        {
+            shouldDestroyObject = _distancesBetweenCollisions[i] < 1;
+        }
+
+        if (_distancesBetweenCollisions.Count > 10)
+            _distancesBetweenCollisions.RemoveRange(0, 5);
+
+        if (!shouldDestroyObject)
+            return;
+        
+        _distancesBetweenCollisions.Clear();
+        gameObject.SetActive(false);
+    }
+
     private void ReflectDirection(GameObject wall)
     {
         var border = wall.GetComponent<Border>();
