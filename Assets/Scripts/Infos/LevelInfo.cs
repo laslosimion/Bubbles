@@ -9,6 +9,7 @@ public sealed class LevelInfo:ScriptableObject
         public int moves;
         public int points;
         public float cameraSize = 25;
+        public float cameraY;
         public Color color;
     }
     

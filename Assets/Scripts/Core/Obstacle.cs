@@ -11,20 +11,22 @@ public class Obstacle : MonoBehaviour
     private float _speed; 
     private Vector2 _moveDirection;
 
-    private void Start()
-    {
-        Initialize();
-    }
-
-    private void Initialize()
+    private bool _initialized;
+    
+    public void Initialize()
     {
         _speed = Random.Range(_info.minSpeed, _info.maxSpeed);
 
         _moveDirection = Random.insideUnitCircle.normalized;
+
+        _initialized = true;
     }
     
     private void Update()
     {
+        if (!_initialized)
+            return;
+        
         transform.Translate(_moveDirection * (_speed * Time.deltaTime));
     }
 
@@ -48,5 +50,10 @@ public class Obstacle : MonoBehaviour
             _moveDirection = new Vector2(_moveDirection.x, -_moveDirection.y);
         else  if (border.direction is Border.Direction.Left or Border.Direction.Right)
             _moveDirection = new Vector2(-_moveDirection.x, _moveDirection.y);
+    }
+
+    private void OnDestroy()
+    {
+        _initialized = false;
     }
 }

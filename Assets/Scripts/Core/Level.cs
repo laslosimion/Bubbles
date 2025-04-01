@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class Level : MonoBehaviour, IRuntimeInitializable
 {
     [SerializeField] private LevelInfo _levelInfo;
+    [SerializeField] private SubLevel[] _subLevels;
 
     private bool _canSpawnBubbles;
 
@@ -14,6 +15,7 @@ public class Level : MonoBehaviour, IRuntimeInitializable
     
     private Bubble _currentBubble;
     private int _currentSublevel;
+    private Camera _mainCamera;
 
     private void OnMouseDown()
     {
@@ -38,6 +40,7 @@ public class Level : MonoBehaviour, IRuntimeInitializable
             //_currentBubble.transform.Translate(Input.mousePosition);
         }
     }
+    
 
     private void CreateBubble(Vector3 localMousePosition, Color subLevelColor)
     {
@@ -64,9 +67,31 @@ public class Level : MonoBehaviour, IRuntimeInitializable
 
         Main.Instance.PointsHandler.IncreaseMoves(_levelInfo.subLevels[_currentSublevel].moves);
         Main.Instance.PointsHandler.IncreasePoints(_levelInfo.subLevels[_currentSublevel].points);
+
+        if (_mainCamera == null)
+            _mainCamera = Camera.main;
+
+        if (_mainCamera == null)
+        {
+            Debug.LogError(GetType() + "Can not find main camera!");
+            return;
+        }
+
+        var mainCameraPosition = _mainCamera.transform.position;
+        _mainCamera.orthographicSize = _levelInfo.subLevels[_currentSublevel].cameraSize;
+        _mainCamera.transform.position = new Vector3(mainCameraPosition.x, _levelInfo.subLevels[_currentSublevel].cameraY, mainCameraPosition.z);
         
-        if (Camera.main != null) 
-            Camera.main.orthographicSize = _levelInfo.subLevels[_currentSublevel].cameraSize;
+        _subLevels[_currentSublevel].Initialize();
+    }
+
+    public void SetupNextSubLevel()
+    {
+        _subLevels[_currentSublevel].DisableTopBorder();
+        _subLevels[_currentSublevel].DestroyObstacles();
+        
+        _currentSublevel++;
+
+        Initialize();
     }
 
     private void OnDestroy()

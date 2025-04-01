@@ -16,24 +16,30 @@ MonoBehaviour:
   - moves: 13
     points: 50
     cameraSize: 25
+    cameraY: 0
     color: {r: 0.033018887, g: 0.91912854, b: 1, a: 1}
   - moves: 7
     points: 130
-    cameraSize: 25
+    cameraSize: 50
+    cameraY: 75
     color: {r: 0.230918, g: 1, b: 0.1462264, a: 1}
   - moves: 7
     points: 350
-    cameraSize: 25
+    cameraSize: 75
+    cameraY: 195
     color: {r: 0.96964574, g: 1, b: 0.1273585, a: 1}
   - moves: 7
     points: 750
-    cameraSize: 25
+    cameraSize: 100
+    cameraY: 365
     color: {r: 0.9716981, g: 0.7192079, b: 0, a: 1}
   - moves: 7
     points: 1510
-    cameraSize: 25
+    cameraSize: 120
+    cameraY: 585
     color: {r: 1, g: 0, b: 0, a: 1}
   - moves: 7
     points: 2370
-    cameraSize: 25
+    cameraSize: 200
+    cameraY: 1200
     color: {r: 1, g: 0.13679248, b: 0.89085066, a: 1}

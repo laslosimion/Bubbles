@@ -57,7 +57,7 @@ public sealed class PointsHandler : MonoBehaviour
         UpdatePointsText();
         
         if (_points <= 0)
-            Main.Instance.WinLevel();
+            Main.Instance.WinSubLevel();
     }
 
     private void UpdatePointsText()

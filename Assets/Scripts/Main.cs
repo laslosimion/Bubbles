@@ -32,11 +32,17 @@ public sealed class Main : MonoBehaviour
 
     public void EndGame()
     {
-        throw new NotImplementedException();
+        Debug.Log("EndGame");
     }
 
+    public void WinSubLevel()
+    {
+        _currentLevel.SetupNextSubLevel();
+        Debug.Log("Win sublevel");
+    }
+    
     public void WinLevel()
     {
-        throw new NotImplementedException();
+        Debug.Log("WinLevel");
     }
 }
