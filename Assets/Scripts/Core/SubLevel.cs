@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,8 +9,6 @@ public class SubLevel : MonoBehaviour
     
     [SerializeField] private Obstacle[] _obstacles;
     [SerializeField] private Border _topBorder;
-
-    public Border TopBorder => _topBorder;
     
     public void Initialize()
     {
@@ -36,5 +35,10 @@ public class SubLevel : MonoBehaviour
         {
             Destroy(item.gameObject);
         }
+    }
+
+    private void OnDestroy()
+    {
+        CancelInvoke(nameof(EnableTopBorder));
     }
 }

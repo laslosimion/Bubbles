@@ -35,7 +35,8 @@ public class Level : MonoBehaviour, IRuntimeInitializable
         if (_canSpawnBubbles && _currentBubble)
         {
             _currentBubble.IncreaseScale();
-            //_currentBubble.transform.Translate(Input.mousePosition);
+            var localMousePosition = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+            _currentBubble.transform.localPosition = new Vector3(localMousePosition.x, localMousePosition.y, 0);
         }
     }
     
