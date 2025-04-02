@@ -4,10 +4,13 @@ public sealed class Main : MonoBehaviour
 {
     [SerializeField] private Factory _factory;
     [SerializeField] private PointsHandler _pointsHandler;
+    [SerializeField] private UI _ui;
+    
     public Factory Factory => _factory;
     public PointsHandler PointsHandler => _pointsHandler;
     
     private LevelBase _currentLevel;
+    private int _currentLevelIndex;
     
     public static Main Instance;
 
@@ -19,23 +22,52 @@ public sealed class Main : MonoBehaviour
     
     private void Start()
     {
-        CreateNextLevel();
+        _ui.ShowLevelSelect();
     }
 
-    private void CreateNextLevel()
+    public void CreateNextLevel()
     {
-        _currentLevel = _factory.GetLevel(0);
+        _currentLevelIndex++;
+        
+        CreateLevel();
+    }
+    
+    public void CreateLevel(int index)
+    {
+        _currentLevelIndex = index;
+        
+        CreateLevel();
+    }
+    
+    private void CreateLevel()
+    {
+        if (_currentLevel)
+            Destroy(_currentLevel.gameObject);
+        
+        _pointsHandler.ResetValues();
+        
+        _currentLevel = _factory.GetLevel(_currentLevelIndex);
         _currentLevel.OnLevelCompleted += CurrentLevel_OnLevelCompleted;
+        
+        _ui.ShowLevelUI();
     }
 
     private void CurrentLevel_OnLevelCompleted()
     {
+        _currentLevel.OnLevelCompleted -= CurrentLevel_OnLevelCompleted;
+        
         WinLevel();
     }
 
     public void EndGame()
     {
-        Debug.Log("EndGame");
+        if (_currentLevel)
+        {
+            Destroy(_currentLevel.gameObject);
+            _currentLevel = null;
+        }
+
+        _ui.ShowLevelLost();
     }
 
     public void WinSubLevel()
@@ -46,6 +78,6 @@ public sealed class Main : MonoBehaviour
     
     public void WinLevel()
     {
-        Debug.Log("WinLevel");
+        _ui.ShowLevelWon();
     }
 }

@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -50,6 +49,8 @@ public abstract class LevelBase : MonoBehaviour, IRuntimeInitializable
         if (_currentSublevel >= _subLevels.Length)
         {
             OnLevelCompleted?.Invoke();
+            _canSpawnBubbles = false;
+            
             return;
         }
 
@@ -138,6 +139,8 @@ public abstract class LevelBase : MonoBehaviour, IRuntimeInitializable
         RemoveBubblesListeners();
 
         _spawnedBubbles.Clear();
+
+        _canSpawnBubbles = false;
     }
 
     private void AddBubblesListeners()

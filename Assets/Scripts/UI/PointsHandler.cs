@@ -18,6 +18,15 @@ public sealed class PointsHandler : MonoBehaviour
         UpdatePointsText();
     }
 
+    public void ResetValues()
+    {
+        _points = _moves = _currency = 0;
+        
+        UpdateCurrencyText();
+        UpdateMovesText();
+        UpdatePointsText();
+    }
+
     public void IncreaseCurrency(int value)
     {
         _currency += value;
