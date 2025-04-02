@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public abstract class SubLevelBase : MonoBehaviour
@@ -6,6 +7,9 @@ public abstract class SubLevelBase : MonoBehaviour
     private const float TopPositionOffset = 3;
     
     [SerializeField] private Border _topBorder;
+    [SerializeField] private TMP_Text _pointsText;
+    
+    private int _points;
 
     public abstract void Initialize();
     
@@ -23,6 +27,31 @@ public abstract class SubLevelBase : MonoBehaviour
             new Vector3(topBorderTransformPosition.x, topBorderTransformPosition.y + TopPositionOffset);
         
         _topBorder.gameObject.SetActive(true);
+    }
+
+    public void IncreasePoints(int value)
+    {
+        _points += value;
+
+        UpdatePointsText();
+    }
+    
+        
+    public void DecreasePoints(int value)
+    {
+        _points -= value;
+        if (_points < 0)
+            _points = 0;
+        
+        UpdatePointsText();
+        
+        if (_points <= 0)
+            Main.Instance.WinSubLevel();
+    }
+    
+    private void UpdatePointsText()
+    {
+        _pointsText.text = _points.ToString();
     }
 
     private void OnDestroy()

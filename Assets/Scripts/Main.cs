@@ -3,13 +3,13 @@ using UnityEngine;
 public sealed class Main : MonoBehaviour
 {
     [SerializeField] private Factory _factory;
-    [SerializeField] private PointsHandler _pointsHandler;
+    [SerializeField] private ScoreUIHandler _pointsHandler;
     [SerializeField] private UI _ui;
 
     [SerializeField] private bool _showPrints;
     
     public Factory Factory => _factory;
-    public PointsHandler PointsHandler => _pointsHandler;
+    public ScoreUIHandler PointsHandler => _pointsHandler;
     
     private LevelBase _currentLevel;
     private int _currentLevelIndex;
@@ -18,6 +18,7 @@ public sealed class Main : MonoBehaviour
 
     private void Awake()
     {
+        Application.targetFrameRate = 60;
         if (Instance == null)
             Instance = this;
     }
