@@ -89,5 +89,7 @@ public class Obstacle : MonoBehaviour
     private void OnDestroy()
     {
         _initialized = false;
+        
+        _distancesBetweenCollisions.Clear();
     }
 }
