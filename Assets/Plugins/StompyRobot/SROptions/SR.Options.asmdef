@@ -1,0 +1,20 @@
+{
+    "name": "SR.Options",
+    "rootNamespace": "",
+    "references": [
+        "GUID:05dbf8cd246c9274c8a78a65142e5f8a",
+        "GUID:bcc75752368a72b4aba4043ea13b2a1a",
+        "GUID:cdf9fe82aface0e429b07a3ab2be869c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "UNITY_EDITOR||DEVELOPMENT_BUILD"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
