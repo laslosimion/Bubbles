@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d8da55c930aac94b8bb1566303a2c89, type: 3}
   m_Name: DefaultBubble
   m_EditorClassIdentifier: 
-  increaseScaleSpeed: 0.05
-  increasePointsSpeed: 50
+  increaseScaleSpeed: 0.015
+  increasePointsSpeed: 15
