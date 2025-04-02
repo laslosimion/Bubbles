@@ -7,7 +7,7 @@ public sealed class Main : MonoBehaviour
     public Factory Factory => _factory;
     public PointsHandler PointsHandler => _pointsHandler;
     
-    private Level _currentLevel;
+    private LevelBase _currentLevel;
     
     public static Main Instance;
 

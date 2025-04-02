@@ -3,7 +3,7 @@ using UnityEngine;
 public class Factory : MonoBehaviour
 {
     [SerializeField] private Bubble _bubble;
-    [SerializeField] private Level[] _levels;
+    [SerializeField] private LevelBase[] _levels;
 
     public Bubble GetBubble(Vector2 position, Transform parent, Color color, int pointsDeMultiplier)
     {
@@ -18,12 +18,12 @@ public class Factory : MonoBehaviour
         return bubble;
     }
 
-    public Level GetLevel(int current)
+    public LevelBase GetLevel(int current)
     {
         var instance = Instantiate(_levels[current]);
         instance.transform.position = Vector3.zero;
 
-        var component = instance.GetComponent<Level>();
+        var component = instance.GetComponent<LevelBase>();
         component.Initialize();
         
         return component;
