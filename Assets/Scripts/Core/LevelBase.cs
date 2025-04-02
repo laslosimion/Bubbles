@@ -39,6 +39,19 @@ public abstract class LevelBase : MonoBehaviour, IRuntimeInitializable
         
         _subLevels[_currentSublevel].Initialize();
     }
+    
+    protected virtual void OnDestroy()
+    {
+        RemoveBubblesListeners();
+
+        foreach (var item in _spawnedBubbles)
+        {
+            Destroy(item.gameObject);
+        }
+        _spawnedBubbles.Clear();
+
+        _canSpawnBubbles = false;
+    }
 
     public virtual void SetupNextSubLevel()
     {
@@ -132,15 +145,6 @@ public abstract class LevelBase : MonoBehaviour, IRuntimeInitializable
         {
             item.ResetHits();
         }
-    }
-
-    protected virtual void OnDestroy()
-    {
-        RemoveBubblesListeners();
-
-        _spawnedBubbles.Clear();
-
-        _canSpawnBubbles = false;
     }
 
     private void AddBubblesListeners()

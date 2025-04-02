@@ -1,10 +1,13 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class Obstacle : MonoBehaviour
 {
+    private const int CollisionsSaved = 5;
+    private const int CollisionsCleanTrigger = 10;
+    private const int CurrencyReward = 1;
+    
     [SerializeField] private ObstacleInfo _info;
     
     private float _speed; 
@@ -12,7 +15,7 @@ public class Obstacle : MonoBehaviour
 
     private bool _initialized;
     private Vector2 _previousCollisionPoint;
-    private List<float> _distancesBetweenCollisions = new();
+    private readonly List<float> _distancesBetweenCollisions = new();
     
     public void Initialize()
     {
@@ -55,22 +58,25 @@ public class Obstacle : MonoBehaviour
 
     private void CheckDistances()
     {
-        if (_distancesBetweenCollisions.Count < 5)
+        if (_distancesBetweenCollisions.Count < CollisionsSaved)
             return;
 
         var shouldDestroyObject = false;
-        for (var i = _distancesBetweenCollisions.Count - 1; i > _distancesBetweenCollisions.Count - 5; i--)
+        for (var i = _distancesBetweenCollisions.Count - 1; i > _distancesBetweenCollisions.Count - CollisionsSaved; i--)
         {
             shouldDestroyObject = _distancesBetweenCollisions[i] < 1;
         }
 
-        if (_distancesBetweenCollisions.Count > 10)
-            _distancesBetweenCollisions.RemoveRange(0, 5);
+        if (_distancesBetweenCollisions.Count > CollisionsCleanTrigger)
+            _distancesBetweenCollisions.RemoveRange(0, CollisionsSaved);
 
         if (!shouldDestroyObject)
             return;
         
+        Main.Instance.PointsHandler.IncreaseCurrency(CurrencyReward);
+        
         _distancesBetweenCollisions.Clear();
+        
         gameObject.SetActive(false);
     }
 
