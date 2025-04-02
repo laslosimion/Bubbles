@@ -267,6 +267,7 @@ MonoBehaviour:
   _factory: {fileID: 825729575}
   _pointsHandler: {fileID: 4880306756958576030}
   _ui: {fileID: 9034882599021216652}
+  _showPrints: 1
 --- !u!4 &825729577
 Transform:
   m_ObjectHideFlags: 0

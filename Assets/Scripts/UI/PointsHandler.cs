@@ -76,7 +76,7 @@ public sealed class PointsHandler : MonoBehaviour
         _moves--;
         if (_moves <= 0)
         {
-            Main.Instance.EndGame();
+            Main.Instance.LoseSubLevel();
             _movesText.text = "0";
             return;
         }

@@ -5,6 +5,8 @@ public sealed class Main : MonoBehaviour
     [SerializeField] private Factory _factory;
     [SerializeField] private PointsHandler _pointsHandler;
     [SerializeField] private UI _ui;
+
+    [SerializeField] private bool _showPrints;
     
     public Factory Factory => _factory;
     public PointsHandler PointsHandler => _pointsHandler;
@@ -22,11 +24,13 @@ public sealed class Main : MonoBehaviour
     
     private void Start()
     {
+        Print("Show select level...");
         _ui.ShowLevelSelect();
     }
 
     public void CreateNextLevel()
     {
+        Print("Create Next Level...");
         _currentLevelIndex++;
         
         CreateLevel();
@@ -41,6 +45,8 @@ public sealed class Main : MonoBehaviour
     
     private void CreateLevel()
     {
+        Print("Create Level #" + _currentLevelIndex);
+        
         if (_currentLevel)
             Destroy(_currentLevel.gameObject);
         
@@ -54,13 +60,16 @@ public sealed class Main : MonoBehaviour
 
     private void CurrentLevel_OnLevelCompleted()
     {
+        Print("Level Completed...");
+        
         _currentLevel.OnLevelCompleted -= CurrentLevel_OnLevelCompleted;
         
         WinLevel();
     }
 
-    public void EndGame()
+    public void LoseSubLevel()
     {
+        Print("Lose Sub Level...");
         if (_currentLevel)
         {
             Destroy(_currentLevel.gameObject);
@@ -72,12 +81,19 @@ public sealed class Main : MonoBehaviour
 
     public void WinSubLevel()
     {
+        Print("Win Sub Level...");
         _currentLevel.SetupNextSubLevel();
-        Debug.Log("Win sublevel");
     }
     
     public void WinLevel()
     {
+        Print("Win Level...");
         _ui.ShowLevelWon();
+    }
+
+    public void Print(string message)
+    {
+        if (_showPrints)
+            Debug.Log(GetType() + $" {message}");
     }
 }

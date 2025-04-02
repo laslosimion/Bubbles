@@ -25,6 +25,7 @@ public class Bubble : MonoBehaviour, IRuntimeInitializable
 
     public void Initialize()
     {
+        Main.Instance.Print("Initialize...");
         transform.localScale = Vector3.zero;
         
         _sprite.color = _defaultColor;
@@ -43,6 +44,7 @@ public class Bubble : MonoBehaviour, IRuntimeInitializable
     public void HandleRelease()
     {
         IsDragged = false;
+        Main.Instance.Print("Bubble released...");
     }
     
     public void ResetHits()
@@ -89,6 +91,7 @@ public class Bubble : MonoBehaviour, IRuntimeInitializable
         {
             _hitTop = true;
 
+            Main.Instance.Print("Bubble hit top. Points:" + PointsReward);
             OnHitTopBorder?.Invoke(this);
             return;
         }

@@ -112,10 +112,13 @@ public abstract class LevelBase : MonoBehaviour, IRuntimeInitializable
         _currentBubble.OnHitWhileDragged +=Bubble_OnHitWhileDragged;
         
         Main.Instance.PointsHandler.DecreaseMoves();
+        
+        Main.Instance.Print("Create bubble...");
     }
 
     private void Bubble_OnHitWhileDragged(Bubble bubble)
     {
+        Main.Instance.Print("Destroy bubble...");
         Destroy(bubble.gameObject);
         
         bubble.OnHitBubble -= Bubble_OnHit;

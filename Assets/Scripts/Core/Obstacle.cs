@@ -19,6 +19,7 @@ public class Obstacle : MonoBehaviour
     
     public void Initialize()
     {
+        Main.Instance.Print("Initialize...");
         _speed = Random.Range(_info.minSpeed, _info.maxSpeed);
 
         _moveDirection = Random.insideUnitCircle.normalized;
@@ -72,6 +73,8 @@ public class Obstacle : MonoBehaviour
 
         if (!shouldDestroyObject)
             return;
+        
+        Main.Instance.Print("Obstacle stuck, destroying...");
         
         Main.Instance.PointsHandler.IncreaseCurrency(CurrencyReward);
         
