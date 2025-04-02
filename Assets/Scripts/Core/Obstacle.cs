@@ -29,7 +29,7 @@ public class Obstacle : MonoBehaviour
         _previousCollisionPoint = transform.position;
     }
     
-    private void Update()
+    private void FixedUpdate()
     {
         if (!_initialized)
             return;

@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public abstract class LevelBase : MonoBehaviour, IRuntimeInitializable
 {
+    private const float CameraMovementDuration = 2.5f;
+    
     public event Action OnLevelCompleted;
     
     [SerializeField] protected LevelInfo _levelInfo;
@@ -32,10 +35,9 @@ public abstract class LevelBase : MonoBehaviour, IRuntimeInitializable
             Debug.LogError(GetType() + "Can not find main camera!");
             return;
         }
-
-        var mainCameraPosition = _mainCamera.transform.position;
+        
         _mainCamera.orthographicSize = _levelInfo.subLevels[_currentSublevel].cameraSize;
-        _mainCamera.transform.position = new Vector3(mainCameraPosition.x, _levelInfo.subLevels[_currentSublevel].cameraY, mainCameraPosition.z);
+        _mainCamera.transform.DOMoveY(_levelInfo.subLevels[_currentSublevel].cameraY, CameraMovementDuration).SetEase(Ease.Linear);
         
         _subLevels[_currentSublevel].Initialize();
     }
