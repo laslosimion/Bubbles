@@ -81,8 +81,6 @@ public abstract class LevelBase : MonoBehaviour, IRuntimeInitializable
 
         if (Camera.main != null)
             CreateBubble();
-
-        Main.Instance.PointsHandler.DecreaseMoves();
     }
     
     protected virtual void OnMouseDrag()
