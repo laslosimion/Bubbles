@@ -20,15 +20,20 @@ public abstract class LevelBase : MonoBehaviour, IRuntimeInitializable
     
     private Camera _mainCamera;
 
+    private void Awake()
+    {
+        if (_mainCamera == null)
+            _mainCamera = Camera.main;
+        
+        _mainCamera.transform.position = new Vector3(0, 0, _mainCamera.transform.position.z);
+    }
+
     public virtual void Initialize()
     {
         _canSpawnBubbles = true;
 
         Main.Instance.PointsHandler.IncreaseMoves(_levelInfo.subLevels[_currentSublevel].moves);
         _subLevels[_currentSublevel].IncreasePoints(_levelInfo.subLevels[_currentSublevel].points);
-
-        if (_mainCamera == null)
-            _mainCamera = Camera.main;
 
         if (_mainCamera == null)
         {
@@ -63,7 +68,8 @@ public abstract class LevelBase : MonoBehaviour, IRuntimeInitializable
 
         if (_currentSublevel >= _subLevels.Length)
         {
-            OnLevelCompleted?.Invoke();
+            TweenMainCameraToEnd();
+            
             _canSpawnBubbles = false;
             
             return;
@@ -75,7 +81,20 @@ public abstract class LevelBase : MonoBehaviour, IRuntimeInitializable
         RemoveBubblesListeners();
         Invoke(nameof(AddBubblesListeners), 1);
     }
-    
+
+    private void TweenMainCameraToEnd()
+    {
+        _mainCamera.transform
+                .DOMoveY(_mainCamera.transform.position.y + _levelInfo.endLevelCameraYOffset,
+                    CameraMovementDuration).onComplete +=
+            MainCamera_EndAnimationComplete;
+    }
+
+    private void MainCamera_EndAnimationComplete()
+    {
+        OnLevelCompleted?.Invoke();
+    }
+
     protected virtual void OnMouseDown()
     {
         if (!_canSpawnBubbles) 
@@ -107,13 +126,21 @@ public abstract class LevelBase : MonoBehaviour, IRuntimeInitializable
         _currentBubble = Main.Instance.Factory.GetBubble(localMousePosition, transform, subLevelColor, pointsDeMultiplier);
         _spawnedBubbles.Add(_currentBubble);
 
-        _currentBubble.OnHitBubble += Bubble_OnHit;
-        _currentBubble.OnHitTopBorder += Bubble_OnHit;
-        _currentBubble.OnHitWhileDragged +=Bubble_OnHitWhileDragged;
+        AddAllBubbleListeners(_currentBubble);
         
         Main.Instance.PointsHandler.DecreaseMoves();
         
         Main.Instance.Print("Create bubble...");
+    }
+
+    private void Bubble_OnDisabled(Bubble bubble)
+    {
+        RemoveAllBubbleListeners(bubble);
+        
+        _spawnedBubbles.Remove(bubble);
+
+        if (_spawnedBubbles.Count == 0 && _currentSublevel >= _subLevels.Length)
+            OnLevelCompleted?.Invoke();
     }
 
     private void Bubble_OnHitWhileDragged(Bubble bubble)
@@ -121,9 +148,7 @@ public abstract class LevelBase : MonoBehaviour, IRuntimeInitializable
         Main.Instance.Print("Destroy bubble...");
         Destroy(bubble.gameObject);
         
-        bubble.OnHitBubble -= Bubble_OnHit;
-        bubble.OnHitTopBorder -= Bubble_OnHit;
-        bubble.OnHitWhileDragged -=Bubble_OnHitWhileDragged;
+        RemoveAllBubbleListeners(bubble);
         
         _spawnedBubbles.Remove(bubble);
 
@@ -132,14 +157,13 @@ public abstract class LevelBase : MonoBehaviour, IRuntimeInitializable
 
     private void Bubble_OnHit(Bubble bubble)
     {
-        bubble.OnHitBubble -= Bubble_OnHit;
-        bubble.OnHitTopBorder -=Bubble_OnHit;
-        bubble.OnHitWhileDragged -=Bubble_OnHitWhileDragged;
+        RemoveAllBubbleListeners(bubble);
         
         if (bubble.HitsCount < 2)
             Main.Instance.PointsHandler.IncreaseCurrency(bubble.PointsReward / 10);
-        
-        _subLevels[_currentSublevel].DecreasePoints(bubble.PointsReward);
+
+        if (_canSpawnBubbles)
+            _subLevels[_currentSublevel].DecreasePoints(bubble.PointsReward);
     }
 
     private void ResetBubbleHits()
@@ -154,9 +178,7 @@ public abstract class LevelBase : MonoBehaviour, IRuntimeInitializable
     {
         foreach (var item in _spawnedBubbles)
         {
-            item.OnHitBubble += Bubble_OnHit;
-            item.OnHitTopBorder += Bubble_OnHit;
-            item.OnHitWhileDragged +=Bubble_OnHitWhileDragged;
+           AddAllBubbleListeners(item);
         }
     }
     
@@ -164,9 +186,23 @@ public abstract class LevelBase : MonoBehaviour, IRuntimeInitializable
     {
         foreach (var item in _spawnedBubbles)
         {
-            item.OnHitBubble -= Bubble_OnHit;
-            item.OnHitTopBorder -= Bubble_OnHit;
-            item.OnHitWhileDragged -=Bubble_OnHitWhileDragged;
+            RemoveAllBubbleListeners(item);
         }
+    }
+
+    private void AddAllBubbleListeners(Bubble bubble)
+    {
+        bubble.OnHitBubble += Bubble_OnHit;
+        bubble.OnHitTopBorder += Bubble_OnHit;
+        bubble.OnHitWhileDragged +=Bubble_OnHitWhileDragged;
+        bubble.OnDisabled += Bubble_OnDisabled;
+    }
+
+    private void RemoveAllBubbleListeners(Bubble bubble)
+    {
+        bubble.OnHitBubble -= Bubble_OnHit;
+        bubble.OnHitTopBorder -= Bubble_OnHit;
+        bubble.OnHitWhileDragged -=Bubble_OnHitWhileDragged;
+        bubble.OnDisabled -= Bubble_OnDisabled;
     }
 }

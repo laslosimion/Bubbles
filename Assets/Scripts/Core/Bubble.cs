@@ -11,6 +11,7 @@ public class Bubble : MonoBehaviour, IRuntimeInitializable
     public event Action<Bubble> OnHitBubble;
     public event Action<Bubble> OnHitTopBorder;
     public event Action<Bubble> OnHitWhileDragged;
+    public event Action<Bubble> OnDisabled;
 
     private int _pointsReward;
 
@@ -98,5 +99,10 @@ public class Bubble : MonoBehaviour, IRuntimeInitializable
 
         if (IsDragged && other.gameObject.GetComponent<Obstacle>())
             OnHitWhileDragged?.Invoke(this);
+    }
+
+    private void OnDisable()
+    {
+        OnDisabled?.Invoke(this);
     }
 }

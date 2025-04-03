@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "Level", menuName = "ScriptableObjects/Level", order = 1)]
 public sealed class LevelInfo:ScriptableObject
@@ -7,12 +8,16 @@ public sealed class LevelInfo:ScriptableObject
     public class SubLevel
     {
         public int moves;
+        
         public int points;
+        public int pointsDeMultiplier = 30;
+        
         public float cameraSize = 25;
         public float cameraY;
+        
         public Color color;
-        public int pointsDeMultiplier = 30;
     }
     
     public SubLevel[] subLevels;
+    public float endLevelCameraYOffset = 55;
 }
