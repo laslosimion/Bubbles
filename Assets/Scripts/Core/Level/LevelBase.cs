@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class LevelBase : MonoBehaviour, IRuntimeInitializable
 {
-    private const float CameraMovementDuration = 2.5f;
+    private const float CameraMovementDuration = 3f;
     
     public event Action OnLevelCompleted;
     
