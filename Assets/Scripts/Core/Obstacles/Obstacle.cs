@@ -76,7 +76,7 @@ public class Obstacle : MonoBehaviour
         
         Main.Instance.Print("Obstacle stuck, destroying...");
         
-        Main.Instance.PointsHandler.IncreaseCurrency(CurrencyReward);
+        Main.Instance.ScoreUIHandler.IncreaseCurrency(CurrencyReward);
         
         _distancesBetweenCollisions.Clear();
         

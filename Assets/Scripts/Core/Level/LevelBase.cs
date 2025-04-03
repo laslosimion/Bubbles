@@ -32,7 +32,7 @@ public abstract class LevelBase : MonoBehaviour, IRuntimeInitializable
     {
         _canSpawnBubbles = true;
 
-        Main.Instance.PointsHandler.IncreaseMoves(_levelInfo.subLevels[_currentSublevel].moves);
+        Main.Instance.ScoreUIHandler.IncreaseMoves(_levelInfo.subLevels[_currentSublevel].moves);
         _subLevels[_currentSublevel].IncreasePoints(_levelInfo.subLevels[_currentSublevel].points);
 
         if (_mainCamera == null)
@@ -128,7 +128,7 @@ public abstract class LevelBase : MonoBehaviour, IRuntimeInitializable
 
         AddAllBubbleListeners(_currentBubble);
         
-        Main.Instance.PointsHandler.DecreaseMoves();
+        Main.Instance.ScoreUIHandler.DecreaseMoves();
         
         Main.Instance.Print("Create bubble...");
     }
@@ -160,7 +160,7 @@ public abstract class LevelBase : MonoBehaviour, IRuntimeInitializable
         RemoveAllBubbleListeners(bubble);
         
         if (bubble.HitsCount < 2)
-            Main.Instance.PointsHandler.IncreaseCurrency(bubble.PointsReward / 10);
+            Main.Instance.ScoreUIHandler.IncreaseCurrency(bubble.PointsReward / 10);
 
         if (_canSpawnBubbles)
             _subLevels[_currentSublevel].DecreasePoints(bubble.PointsReward);

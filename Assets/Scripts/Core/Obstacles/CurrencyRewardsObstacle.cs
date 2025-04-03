@@ -9,7 +9,7 @@ public class CurrencyRewardsObstacle : MonoBehaviour
         if (!other.gameObject.GetComponent<Bubble>()) 
             return;
         
-        Main.Instance.PointsHandler.IncreaseCurrency(_currencyRewardAmount);
+        Main.Instance.ScoreUIHandler.IncreaseCurrency(_currencyRewardAmount);
         gameObject.SetActive(false);
     }
 }

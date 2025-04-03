@@ -1,15 +1,16 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public sealed class Main : MonoBehaviour
 {
     [SerializeField] private Factory _factory;
-    [SerializeField] private ScoreUIHandler _pointsHandler;
+    [SerializeField] private ScoreUIHandler _scoreUIHandler;
     [SerializeField] private UI _ui;
 
     [SerializeField] private bool _showPrints;
     
     public Factory Factory => _factory;
-    public ScoreUIHandler PointsHandler => _pointsHandler;
+    public ScoreUIHandler ScoreUIHandler => _scoreUIHandler;
     
     private LevelBase _currentLevel;
     private int _currentLevelIndex;
@@ -50,7 +51,7 @@ public sealed class Main : MonoBehaviour
         if (_currentLevel)
             Destroy(_currentLevel.gameObject);
         
-        _pointsHandler.ResetValues();
+        _scoreUIHandler.ResetValues();
         
         _currentLevel = _factory.GetLevel(_currentLevelIndex);
         _currentLevel.OnLevelCompleted += CurrentLevel_OnLevelCompleted;
