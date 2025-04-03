@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 
+[RequireComponent(typeof(AnimateText))]
 public abstract class SubLevelBase : MonoBehaviour
 {
     private const float EnableTopBorderDelay = 3;
@@ -8,6 +9,7 @@ public abstract class SubLevelBase : MonoBehaviour
     
     [SerializeField] private Border _topBorder;
     [SerializeField] private TMP_Text _pointsText;
+    [SerializeField] private AnimateText _animateText;
     
     private int _points;
 
@@ -36,7 +38,6 @@ public abstract class SubLevelBase : MonoBehaviour
         UpdatePointsText();
     }
     
-        
     public void DecreasePoints(int value)
     {
         _points -= value;
@@ -51,7 +52,10 @@ public abstract class SubLevelBase : MonoBehaviour
     
     private void UpdatePointsText()
     {
-        _pointsText.text = _points.ToString();
+        if (_animateText)
+            _animateText.Set(_pointsText, _points);
+        else
+            _pointsText.text = _points.ToString();
     }
 
     private void OnDestroy()

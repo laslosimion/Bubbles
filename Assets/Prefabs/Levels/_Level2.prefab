@@ -341,6 +341,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3156649313526138974}
   - component: {fileID: 158851808207874184}
+  - component: {fileID: 7194703661536896055}
   m_Layer: 0
   m_Name: SubLevel1
   m_TagString: Untagged
@@ -381,8 +382,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _topBorder: {fileID: 2798858425420488387}
   _pointsText: {fileID: 5960938865127609346}
+  _animateText: {fileID: 7194703661536896055}
   _obstacles:
   - {fileID: 6160195433165466742}
+--- !u!114 &7194703661536896055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2609603939402653768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8769fdeabb6b3374c8374046d157983e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3894891060482556278
 GameObject:
   m_ObjectHideFlags: 0
@@ -537,6 +551,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4587960412479407563}
   - component: {fileID: 399034007107580991}
+  - component: {fileID: 4919814811294472576}
   m_Layer: 0
   m_Name: SubLevel4
   m_TagString: Untagged
@@ -580,12 +595,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _topBorder: {fileID: 8881350268303968231}
   _pointsText: {fileID: 1094073148725808422}
+  _animateText: {fileID: 7194703661536896055}
   _obstacles:
   - {fileID: 1974120858380419300}
   - {fileID: 411211316914233376}
   - {fileID: 6857618773388640014}
   - {fileID: 2198569655470171620}
   - {fileID: 6793956837155159060}
+--- !u!114 &4919814811294472576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4311937375315646298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8769fdeabb6b3374c8374046d157983e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4362564526452573804
 GameObject:
   m_ObjectHideFlags: 0
@@ -1604,6 +1632,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1735541425290345192}
   - component: {fileID: 4007911263042465679}
+  - component: {fileID: 1509976395008584960}
   m_Layer: 0
   m_Name: SubLevel6
   m_TagString: Untagged
@@ -1647,6 +1676,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _topBorder: {fileID: 3649085384751219135}
   _pointsText: {fileID: 5100941664309398398}
+  _animateText: {fileID: 7194703661536896055}
   _obstacles:
   - {fileID: 1273330580600355609}
   - {fileID: 1052718768844431447}
@@ -1654,6 +1684,18 @@ MonoBehaviour:
   - {fileID: 8724519380676454652}
   - {fileID: 1309135563259770416}
   - {fileID: 4464989786099339888}
+--- !u!114 &1509976395008584960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6324793028423802374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8769fdeabb6b3374c8374046d157983e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6489889887610243870
 GameObject:
   m_ObjectHideFlags: 0
@@ -1664,6 +1706,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4575983072513658346}
   - component: {fileID: 1446583696134691543}
+  - component: {fileID: 6069692026804542545}
   m_Layer: 0
   m_Name: SubLevel3
   m_TagString: Untagged
@@ -1705,11 +1748,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _topBorder: {fileID: 7338925518566439605}
   _pointsText: {fileID: 1276508089696120948}
+  _animateText: {fileID: 7194703661536896055}
   _obstacles:
   - {fileID: 8746165103440351161}
   - {fileID: 1245386671883871620}
   - {fileID: 7340841283241207295}
   - {fileID: 4291270877923230371}
+--- !u!114 &6069692026804542545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6489889887610243870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8769fdeabb6b3374c8374046d157983e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6875906453597974390
 GameObject:
   m_ObjectHideFlags: 0
@@ -1848,6 +1904,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6084634634442287352}
   - component: {fileID: 333856398730392325}
+  - component: {fileID: 2190849556751820905}
   m_Layer: 0
   m_Name: SubLevel2
   m_TagString: Untagged
@@ -1888,9 +1945,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _topBorder: {fileID: 8710695887446774095}
   _pointsText: {fileID: 904259778290965390}
+  _animateText: {fileID: 7194703661536896055}
   _obstacles:
   - {fileID: 4590855428750924239}
   - {fileID: 5915807104940285594}
+--- !u!114 &2190849556751820905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7272457251308522158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8769fdeabb6b3374c8374046d157983e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7356115221257150926
 GameObject:
   m_ObjectHideFlags: 0
@@ -2621,6 +2691,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2709201575303571972}
   - component: {fileID: 4075252095717305748}
+  - component: {fileID: 2367954734151625750}
   m_Layer: 0
   m_Name: SubLevel5
   m_TagString: Untagged
@@ -2664,12 +2735,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _topBorder: {fileID: 6078611506539210126}
   _pointsText: {fileID: 2320928641721265999}
+  _animateText: {fileID: 7194703661536896055}
   _obstacles:
   - {fileID: 6320682082298518794}
   - {fileID: 5179544792222619192}
   - {fileID: 7410985317576772686}
   - {fileID: 3800701272881770820}
   - {fileID: 5496306705862979476}
+--- !u!114 &2367954734151625750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9186844077186829767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8769fdeabb6b3374c8374046d157983e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &97431082871995999
 PrefabInstance:
   m_ObjectHideFlags: 0

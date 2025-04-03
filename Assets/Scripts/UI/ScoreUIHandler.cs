@@ -1,18 +1,19 @@
 using TMPro;
 using UnityEngine;
 
+[RequireComponent(typeof(AnimateText))]
 public sealed class ScoreUIHandler : MonoBehaviour
 {
     [SerializeField] private TMP_Text _movesText;
     [SerializeField] private TMP_Text _currencyText;
-
+    [SerializeField] private AnimateText _animateText;
     
     private int _moves;
     private int _currency;
 
     private void Start()
     {
-        UpdateCurrencyText();
+        UpdateCurrencyText(true);
     }
 
     public void ResetValues()
@@ -35,9 +36,12 @@ public sealed class ScoreUIHandler : MonoBehaviour
         UpdateCurrencyText();
     }
 
-    private void UpdateCurrencyText()
+    private void UpdateCurrencyText(bool instant = false)
     {
-        _currencyText.text = _currency.ToString();
+        if (instant || _animateText == null)
+            _currencyText.text = _currency.ToString();
+        else
+            _animateText.Set(_currencyText, _currency);
     }
     
     public void DecreaseMoves()
@@ -46,7 +50,10 @@ public sealed class ScoreUIHandler : MonoBehaviour
         if (_moves <= 0)
         {
             Main.Instance.LoseSubLevel();
-            _movesText.text = "0";
+            
+            if (_animateText)
+                _animateText.Set(_movesText, 0);
+            
             return;
         }
 
@@ -62,6 +69,6 @@ public sealed class ScoreUIHandler : MonoBehaviour
 
     private void UpdateMovesText()
     {
-        _movesText.text = _moves.ToString();
+        _animateText.Set(_movesText, _moves);
     }
 }
