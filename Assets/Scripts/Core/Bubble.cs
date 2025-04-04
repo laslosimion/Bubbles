@@ -94,6 +94,8 @@ public class Bubble : MonoBehaviour, IRuntimeInitializable
 
             Main.Instance.Print("Bubble hit top. Points:" + PointsReward);
             OnHitTopBorder?.Invoke(this);
+            
+            Handheld.Vibrate();
             return;
         }
 
