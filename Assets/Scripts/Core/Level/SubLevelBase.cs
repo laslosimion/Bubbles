@@ -1,7 +1,6 @@
 using TMPro;
 using UnityEngine;
 
-[RequireComponent(typeof(AnimateText))]
 public abstract class SubLevelBase : MonoBehaviour
 {
     private const float EnableTopBorderDelay = 3;

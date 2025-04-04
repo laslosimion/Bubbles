@@ -1,7 +1,6 @@
 using TMPro;
 using UnityEngine;
 
-[RequireComponent(typeof(AnimateText))]
 public sealed class ScoreUIHandler : MonoBehaviour
 {
     [SerializeField] private TMP_Text _movesText;

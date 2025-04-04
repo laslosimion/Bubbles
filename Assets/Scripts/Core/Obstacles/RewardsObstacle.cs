@@ -1,7 +1,6 @@
 using TMPro;
 using UnityEngine;
 
-
 public class RewardsObstacle : MonoBehaviour
 {
     [SerializeField] private int _pointsRequired = 100;

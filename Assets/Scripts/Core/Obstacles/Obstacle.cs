@@ -61,17 +61,18 @@ public class Obstacle : MonoBehaviour
     {
         if (_distancesBetweenCollisions.Count < CollisionsSaved)
             return;
-
-        var shouldDestroyObject = false;
-        for (var i = _distancesBetweenCollisions.Count - 1; i > _distancesBetweenCollisions.Count - CollisionsSaved; i--)
+        
+        var lowDistancesCounter = 0;
+        for (var i = _distancesBetweenCollisions.Count - 1; i > _distancesBetweenCollisions.Count - CollisionsSaved-1; i--)
         {
-            shouldDestroyObject = _distancesBetweenCollisions[i] < 1;
+            if (_distancesBetweenCollisions[i] < 3)
+                lowDistancesCounter++;
         }
 
         if (_distancesBetweenCollisions.Count > CollisionsCleanTrigger)
             _distancesBetweenCollisions.RemoveRange(0, CollisionsSaved);
 
-        if (!shouldDestroyObject)
+        if (lowDistancesCounter < 5)
             return;
         
         Main.Instance.Print("Obstacle stuck, destroying...");
