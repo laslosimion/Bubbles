@@ -49,4 +49,4 @@ MonoBehaviour:
     cameraSize: 50
     cameraY: 375
     color: {r: 1, g: 0.13679248, b: 0.89085066, a: 1}
-  endLevelCameraYOffset: 139
+  endLevelCameraY: 515

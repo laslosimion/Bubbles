@@ -84,9 +84,7 @@ public abstract class LevelBase : MonoBehaviour, IRuntimeInitializable
 
     private void TweenMainCameraToEnd()
     {
-        _mainCamera.transform
-                .DOMoveY(_mainCamera.transform.position.y + _levelInfo.endLevelCameraYOffset,
-                    CameraMovementDuration).onComplete +=
+        _mainCamera.transform.DOMoveY(_levelInfo.endLevelCameraY, CameraMovementDuration).onComplete +=
             MainCamera_EndAnimationComplete;
     }
 
