@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Bubble : MonoBehaviour, IRuntimeInitializable
 {
+    private const long HitTopBorderVibrationDuration = 50;
+    
     [SerializeField] private BubbleInfo _bubbleInfo;
     [SerializeField] private SpriteRenderer _sprite;
     [SerializeField] private TMP_Text _text;
@@ -46,6 +48,8 @@ public class Bubble : MonoBehaviour, IRuntimeInitializable
     {
         IsDragged = false;
         Main.Instance.Print("Bubble released...");
+        
+        Vibration.Cancel();
     }
     
     public void ResetHits()
@@ -61,6 +65,8 @@ public class Bubble : MonoBehaviour, IRuntimeInitializable
 
         _pointsReward += _bubbleInfo.increasePointsSpeed;
         _text.text = (_pointsReward / _pointsDeMultiplier).ToString();
+        
+        Vibration.Vibrate(1000);
     }
 
     public void SetPointsDemultiplier(int value)
@@ -95,7 +101,7 @@ public class Bubble : MonoBehaviour, IRuntimeInitializable
             Main.Instance.Print("Bubble hit top. Points:" + PointsReward);
             OnHitTopBorder?.Invoke(this);
             
-            Handheld.Vibrate();
+            Vibration.Vibrate(HitTopBorderVibrationDuration);
             return;
         }
 

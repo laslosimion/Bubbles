@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
@@ -6,6 +7,9 @@ using UnityEngine;
 public abstract class LevelBase : MonoBehaviour, IRuntimeInitializable
 {
     private const float CameraMovementDuration = 3f;
+
+    private const long BubbleHitVibrationDuration = 100;
+    private const long LevelEndVibrationDuration = 200;
     
     public event Action OnLevelCompleted;
     
@@ -68,6 +72,7 @@ public abstract class LevelBase : MonoBehaviour, IRuntimeInitializable
 
         if (_currentSublevel >= _subLevels.Length)
         {
+            Vibration.Vibrate(LevelEndVibrationDuration);
             TweenMainCameraToEnd();
             
             _canSpawnBubbles = false;
@@ -91,6 +96,16 @@ public abstract class LevelBase : MonoBehaviour, IRuntimeInitializable
     private void MainCamera_EndAnimationComplete()
     {
         OnLevelCompleted?.Invoke();
+    }
+
+    private static IEnumerator PlayMultipleVibrations(int vibrations, float intervalSeconds)
+    {
+        while (vibrations > 0) 
+        {
+            Handheld.Vibrate();
+            yield return new WaitForSeconds(intervalSeconds);
+            vibrations--;
+        }
     }
 
     protected virtual void OnMouseDown()
@@ -151,6 +166,8 @@ public abstract class LevelBase : MonoBehaviour, IRuntimeInitializable
         _spawnedBubbles.Remove(bubble);
 
         _currentBubble = null;
+
+        Vibration.Vibrate(BubbleHitVibrationDuration);
     }
 
     private void Bubble_OnHit(Bubble bubble)

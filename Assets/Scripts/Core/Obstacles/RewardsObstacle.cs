@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class RewardsObstacle : MonoBehaviour
 {
+    private const long VibrationDuration = 100;
+    
     [SerializeField] private int _pointsRequired = 100;
     [SerializeField] private TMP_Text _pointsTMPText;
     [SerializeField] private AnimateText _animateText;
@@ -33,6 +35,8 @@ public class RewardsObstacle : MonoBehaviour
             _pointsRequired -= bubble.PointsReward;
             UpdateText();
         }
+
+        Vibration.Vibrate(VibrationDuration);
         
         var bubblePointsAmount = bubble.PointsReward - _pointsRequired;
 
