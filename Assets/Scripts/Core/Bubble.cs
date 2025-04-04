@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bubble : MonoBehaviour, IRuntimeInitializable
 {
-    private const long HitTopBorderVibrationDuration = 50;
+    private const long HitSomethingVibrationDuration = 50;
     
     [SerializeField] private BubbleInfo _bubbleInfo;
     [SerializeField] private SpriteRenderer _sprite;
@@ -89,6 +89,7 @@ public class Bubble : MonoBehaviour, IRuntimeInitializable
             _hitTop = true;
             bubble._hitTop = true;
             
+            Vibration.Vibrate(HitSomethingVibrationDuration);
             OnHitBubble?.Invoke(this);
             return;
         }
@@ -101,7 +102,7 @@ public class Bubble : MonoBehaviour, IRuntimeInitializable
             Main.Instance.Print("Bubble hit top. Points:" + PointsReward);
             OnHitTopBorder?.Invoke(this);
             
-            Vibration.Vibrate(HitTopBorderVibrationDuration);
+            Vibration.Vibrate(HitSomethingVibrationDuration);
             return;
         }
 
