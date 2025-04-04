@@ -21,18 +21,18 @@ public sealed class ScoreUIHandler : MonoBehaviour
         UpdateMovesText();
     }
 
-    public void IncreaseCurrency(int value)
+    public void IncreaseCurrency(int value, bool instant = false)
     {
         _currency += value;
 
-        UpdateCurrencyText();
+        UpdateCurrencyText(instant);
     }
 
-    public void DecreaseCurrency(int value)
+    public void DecreaseCurrency(int value, bool instant = false)
     {
         _currency--;
 
-        UpdateCurrencyText();
+        UpdateCurrencyText(instant);
     }
 
     private void UpdateCurrencyText(bool instant = false)
@@ -58,16 +58,19 @@ public sealed class ScoreUIHandler : MonoBehaviour
 
         UpdateMovesText();
     }
-    
-    public void IncreaseMoves(int value)
+
+    public void IncreaseMoves(int value, bool instant = false)
     {
         _moves += value;
 
-        UpdateMovesText();
+        UpdateMovesText(instant);
     }
 
-    private void UpdateMovesText()
+    private void UpdateMovesText(bool instant = false)
     {
-        _animateText.Set(_movesText, _moves);
+        if (!instant || _animateText == null)
+            _animateText.Set(_movesText, _moves);
+        else
+            _movesText.text = _moves.ToString();
     }
 }

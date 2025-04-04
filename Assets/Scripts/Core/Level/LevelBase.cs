@@ -33,7 +33,7 @@ public abstract class LevelBase : MonoBehaviour, IRuntimeInitializable
         _canSpawnBubbles = true;
 
         Main.Instance.ScoreUIHandler.IncreaseMoves(_levelInfo.subLevels[_currentSublevel].moves);
-        _subLevels[_currentSublevel].IncreasePoints(_levelInfo.subLevels[_currentSublevel].points);
+        _subLevels[_currentSublevel].IncreasePoints(_levelInfo.subLevels[_currentSublevel].points, true);
 
         if (_mainCamera == null)
         {

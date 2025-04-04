@@ -30,11 +30,11 @@ public abstract class SubLevelBase : MonoBehaviour
         _topBorder.gameObject.SetActive(true);
     }
 
-    public void IncreasePoints(int value)
+    public void IncreasePoints(int value, bool instant = false)
     {
         _points += value;
 
-        UpdatePointsText();
+        UpdatePointsText(instant);
     }
     
     public void DecreasePoints(int value)
@@ -49,12 +49,12 @@ public abstract class SubLevelBase : MonoBehaviour
             Main.Instance.WinSubLevel();
     }
     
-    private void UpdatePointsText()
+    private void UpdatePointsText(bool instant = false)
     {
-        if (_animateText)
-            _animateText.Set(_pointsText, _points);
-        else
+        if (instant || _animateText == null)
             _pointsText.text = _points.ToString();
+        else
+            _animateText.Set(_pointsText, _points);
     }
 
     private void OnDestroy()
