@@ -21,32 +21,32 @@ MonoBehaviour:
     color: {r: 0.031372547, g: 0.5381187, b: 1, a: 1}
   - moves: 7
     points: 130
-    pointsDeMultiplier: 25
-    cameraSize: 50
-    cameraY: 75
+    pointsDeMultiplier: 30
+    cameraSize: 29
+    cameraY: 54
     color: {r: 0.230918, g: 1, b: 0.1462264, a: 1}
   - moves: 7
     points: 350
-    pointsDeMultiplier: 20
-    cameraSize: 75
-    cameraY: 200
+    pointsDeMultiplier: 30
+    cameraSize: 34
+    cameraY: 119
     color: {r: 0.96964574, g: 1, b: 0.1273585, a: 1}
   - moves: 7
     points: 750
-    pointsDeMultiplier: 15
-    cameraSize: 100
-    cameraY: 375
+    pointsDeMultiplier: 20
+    cameraSize: 38
+    cameraY: 193
     color: {r: 0.9716981, g: 0.7192079, b: 0, a: 1}
   - moves: 7
     points: 1510
     pointsDeMultiplier: 10
-    cameraSize: 120
-    cameraY: 600
+    cameraSize: 45
+    cameraY: 280
     color: {r: 1, g: 0, b: 0, a: 1}
   - moves: 7
     points: 2370
     pointsDeMultiplier: 5
-    cameraSize: 150
-    cameraY: 875
+    cameraSize: 50
+    cameraY: 375
     color: {r: 1, g: 0.13679248, b: 0.89085066, a: 1}
-  endLevelCameraYOffset: 325
+  endLevelCameraYOffset: 139

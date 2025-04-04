@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f634a6532df213446b53fe752ab5fca0, type: 3}
   m_Name: ObstaclesL2
   m_EditorClassIdentifier: 
-  minSpeed: 15
-  maxSpeed: 20
+  minSpeed: 20
+  maxSpeed: 25
