@@ -600,7 +600,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _topBorder: {fileID: 8881350268303968231}
   _pointsText: {fileID: 1094073148725808422}
-  _animateText: {fileID: 7194703661536896055}
+  _animateText: {fileID: 4919814811294472576}
   _obstacles:
   - {fileID: 2592848022378662896}
   - {fileID: 4379694045537486538}
@@ -1684,7 +1684,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _topBorder: {fileID: 3649085384751219135}
   _pointsText: {fileID: 5100941664309398398}
-  _animateText: {fileID: 7194703661536896055}
+  _animateText: {fileID: 1509976395008584960}
   _obstacles:
   - {fileID: 5388754203956700557}
   - {fileID: 200306351543425492}
@@ -1756,7 +1756,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _topBorder: {fileID: 7338925518566439605}
   _pointsText: {fileID: 1276508089696120948}
-  _animateText: {fileID: 7194703661536896055}
+  _animateText: {fileID: 6069692026804542545}
   _obstacles:
   - {fileID: 4359205214905392177}
   - {fileID: 265742228247462955}
@@ -1930,7 +1930,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _topBorder: {fileID: 8710695887446774095}
   _pointsText: {fileID: 904259778290965390}
-  _animateText: {fileID: 7194703661536896055}
+  _animateText: {fileID: 2190849556751820905}
   _obstacles:
   - {fileID: 108442165902370403}
   - {fileID: 1109325922747056994}
@@ -2724,7 +2724,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _topBorder: {fileID: 6078611506539210126}
   _pointsText: {fileID: 2320928641721265999}
-  _animateText: {fileID: 7194703661536896055}
+  _animateText: {fileID: 2367954734151625750}
   _obstacles:
   - {fileID: 4730313881424264821}
   - {fileID: 8897994128588614413}

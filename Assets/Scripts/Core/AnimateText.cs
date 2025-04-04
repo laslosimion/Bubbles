@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class AnimateText : MonoBehaviour
 {
+    private Coroutine _animateCoroutine;
+    
     public void Set(TMP_Text text, int value)
     {
-        StartCoroutine(IE_Animate(text, value));
+        if (_animateCoroutine != null)
+            StopCoroutine(_animateCoroutine);
+        
+        _animateCoroutine = StartCoroutine(IE_Animate(text, value));
     }
 
     private static IEnumerator IE_Animate(TMP_Text text, int value)
