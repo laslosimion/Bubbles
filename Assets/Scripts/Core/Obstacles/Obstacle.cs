@@ -4,8 +4,12 @@ using Random = UnityEngine.Random;
 
 public class Obstacle : MonoBehaviour
 {
-    private const int CollisionsSaved = 5;
-    private const int CollisionsCleanTrigger = 10;
+    private const int CollisionsSaved = 10;
+    private const int CollisionsCleanTrigger = 20;
+
+    private const float MinDistanceForCollisions = 3;
+    private const int DestroyAfterShortCollisionsCounter = 8;
+    
     private const int CurrencyReward = 1;
     
     [SerializeField] private ObstacleInfo _info;
@@ -62,17 +66,17 @@ public class Obstacle : MonoBehaviour
         if (_distancesBetweenCollisions.Count < CollisionsSaved)
             return;
         
-        var lowDistancesCounter = 0;
+        var shortDistancesBetweenCollisions = 0;
         for (var i = _distancesBetweenCollisions.Count - 1; i > _distancesBetweenCollisions.Count - CollisionsSaved-1; i--)
         {
-            if (_distancesBetweenCollisions[i] < 3)
-                lowDistancesCounter++;
+            if (_distancesBetweenCollisions[i] < MinDistanceForCollisions)
+                shortDistancesBetweenCollisions++;
         }
 
         if (_distancesBetweenCollisions.Count > CollisionsCleanTrigger)
             _distancesBetweenCollisions.RemoveRange(0, CollisionsSaved);
 
-        if (lowDistancesCounter < 5)
+        if (shortDistancesBetweenCollisions < DestroyAfterShortCollisionsCounter)
             return;
         
         Main.Instance.Print("Obstacle stuck, destroying...");
